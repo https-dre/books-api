@@ -22,7 +22,7 @@ export class CreateBookUseCase {
 			id: uuid(),
             name: book.name,
         	autor: book.autor,
-        	epubPath: book.epubPath
+        	file: book.file
 		}
 
 
