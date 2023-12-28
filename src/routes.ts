@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 	res.send('Hello Word')
 })
 
-router.post('/', upload.single('epub'), (req, res)=>{
+router.post('/post', upload.single('file'), (req, res)=>{
 	const bookRepo = new BookRepository()
 	const bookUseCase = new CreateBookUseCase(bookRepo)
 	const bookController = new CreateBookController(bookUseCase)
