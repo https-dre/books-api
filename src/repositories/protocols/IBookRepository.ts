@@ -1,7 +1,7 @@
-import { Book } from "../models/Book.ts"
+import { Book } from "../../models/Book"
 
 export interface IBookRepository {
-	findByName(name: string): Promise<Book>;
+	findByName(name: string): Promise<Book | null>;
 	save(book : Book): Promise<void>;
 }
 
