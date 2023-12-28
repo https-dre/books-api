@@ -2,11 +2,19 @@ import multer from "multer"
 
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
-        cb(null, 'storage')
+        if(file)
+        {
+            console.log('Salvando ' + file.filename)
+            cb(null, 'storage')
+        }
     },
     filename: (req, file, cb)=>{
-        const nameFile = file.fieldname + '-' + req.body.name.replace(' ', '_')
-        cb(null,  nameFile)
+        if(file)
+        {
+            const reqName = req.body.name.toString().replace(' ', '-').replace('.', '_')
+            const nameFile = file.fieldname + "-" + reqName + "-" + file.originalname
+            cb(null,  nameFile)
+        }
     }
 })
 
