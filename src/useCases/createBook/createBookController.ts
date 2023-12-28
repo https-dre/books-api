@@ -1,6 +1,6 @@
 import { Request, Response, response } from "express";
 import { Book } from '../../models/Book';
-import { CreateBookUseCase } from "./CreateBookUseCase";
+import { CreateBookUseCase } from "./createBookUseCase";
 
 export class CreateBookController {
     private createBookCase : CreateBookUseCase
@@ -12,22 +12,22 @@ export class CreateBookController {
 
     async handle(request : Request, response : Response) : Promise<Response>
     {
-        try {
-            const { name, autor } = request.body
-            let filePath = request.file?.fieldname + '-' + name.replace(' ', '_') || null
-            const result = await this.createBookCase.execute({
-                name: name,
-                autor: autor,
-                epubPath: filePath
-            })
-            if(result)
-            {
-                return response.status(201).json(result)
-            }
-            return response.status(400).send('Erro ao cadastrar Livro')
+        console.log('Chegou no Controller')
+        const {name, autor} = request.body
+        const file = request.file?.filename + '-' + request.body.name || null
 
+        try {
+            await this.createBookCase.execute({
+                name, 
+                autor,
+                file
+            })
+
+            return response.status(201).json()
         } catch (error) {
-            return response.status(500).send('Erro interno no Servidor.')
+            return response
+            .status(400)
+            .json({message : error.message || 'Unexpected Error.'})
         }
     }
 }
