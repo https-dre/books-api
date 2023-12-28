@@ -1,6 +1,6 @@
 import { Request, Response, response } from "express";
 import { Book } from '../../models/Book';
-import { CreateBookUseCase } from "./createBookUseCase";
+import { CreateBookUseCase } from "./CreateBookUseCase";
 
 export class CreateBookController {
     private createBookCase : CreateBookUseCase
@@ -14,7 +14,13 @@ export class CreateBookController {
     {
         console.log('Chegou no Controller')
         const {name, autor} = request.body
-        const file = request.file?.filename + '-' + request.body.name || null
+        let file = null
+
+        if(request.file)
+        {
+            const reqName = request.body.name.toString().replace(' ', '-').replace('.', '_')
+            file = request.file.fieldname + "-" + reqName + "-" + request.file.originalname
+        }
 
         try {
             await this.createBookCase.execute({
@@ -24,7 +30,7 @@ export class CreateBookController {
             })
 
             return response.status(201).json()
-        } catch (error) {
+        } catch (error : any) {
             return response
             .status(400)
             .json({message : error.message || 'Unexpected Error.'})
