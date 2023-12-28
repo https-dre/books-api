@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Livros</title>
+</head>
+
+<body>
+
+    <h2>Envio de Livros</h2>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="text" id="nameInput">
+        <input type="text" id="autorInput">
+        <input type="file" id="imageInput" name="file">
+
+    </form>
+    <button type="button" id="buttonUpload">Enviar</button>
+
+    <script>
+        async function uploadFile(e) {
+
+            const fileInput = document.getElementById('imageInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Selecione um arquivo antes de enviar.');
+                return;
+            }
+
+            const url = 'http://localhost:8888/post'; // Substitua pelo URL do seu servidor
+
+            const formData = new FormData();
+            formData.append('epub', file);
+
+            // Adicione outros dados ao FormData
+            formData.append('name', document.querySelector('#nameInput').value);
+            formData.append('autor', document.querySelector('#autorInput').value);
+
+            e.preventDefault();
+            const response = await fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "crossorigin": "anonymous"
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error(`Erro no upload: ${response.statusText}`);
+            }
+            else {
+                const data = await response.json()
+                console.log(data)
+                alert('Sucesso!!!')
+            }
+        }
+
+        document.getElementById('buttonUpload').addEventListener('click', (e) => {
+            uploadFile(e)
+        })
+    </script>
+
+</body>
+
+</html>
