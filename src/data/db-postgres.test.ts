@@ -1,9 +1,11 @@
 import { dbPool } from "./db-postgres"
 import { expect, test } from 'vitest'
 import { QueryResult } from "pg"
+import { v4 as uuid } from 'uuid';
 
 test('Conectar ao Banco de Dados', async () => {
     const client = await dbPool.connect()
+    client.release()
 })
 
 test('Realizar uma Query', async () => {
@@ -17,7 +19,9 @@ test('Realizar uma Query', async () => {
 test('Insert no PostgreSQL', async () => {
     const client = await dbPool.connect()
 
-    const result = await client.query(`INSERT INTO books (id, name, autor, file) VALUES ('3','Nome do LIvro', 'Autor do Livro', 'FilePath')`)
+    const result = await client.query(`INSERT INTO books (id, name, autor, file)
+    VALUES ($1, $2, $3, $4)`,
+    [uuid(), 'Nome do LIvro', 'Autor', 'Filepath'])
 
     await client.release()
 
