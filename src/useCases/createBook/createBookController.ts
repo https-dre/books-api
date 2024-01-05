@@ -23,13 +23,13 @@ export class CreateBookController {
         }
 
         try {
-            await this.createBookCase.execute({
+            const result = await this.createBookCase.execute({
                 name, 
                 autor,
                 file
             })
 
-            return response.status(201).json()
+            return response.status(result.status).json(result.body)
         } catch (error : any) {
             return response
             .status(400)
