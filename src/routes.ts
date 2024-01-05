@@ -11,6 +11,10 @@ import { CreateBookController } from './useCases/createBook/CreateBookController
 import { GetBookUseCase } from './useCases/getBook/GetBookUseCase'
 import { GetBookController } from './useCases/getBook/GetBookController';
 
+//GetFileBook UseCases
+import { GetFileBookUseCase } from './useCases/getFileBook/GetFileBookUseCase';
+import { GetFileBookController } from './useCases/getFileBook/GetFileBookController';
+
 const router = Router()
 
 router.get('/', (req, res) => {
@@ -22,7 +26,7 @@ router.post('/post', upload.single('file'), (req, res)=>{
 	const bookUseCase = new CreateBookUseCase(bookRepo)
 	const bookController = new CreateBookController(bookUseCase)
 
-	return bookController.handle(req, res)
+	bookController.handle(req, res)
 })
 
 router.get('/getBook', (req, res)=>{
@@ -30,7 +34,15 @@ router.get('/getBook', (req, res)=>{
 	const getBookUseCase = new GetBookUseCase(bookRepo)
 	const getBookController = new GetBookController(getBookUseCase)
 
-	return getBookController.handle(req, res)
+	getBookController.handle(req, res)
+})
+
+router.get('/download', (req, res)=>{
+	const bookRepo = new BookRepository()
+	const getFileBookUseCase = new GetFileBookUseCase(bookRepo)
+	const getFileBookController = new GetFileBookController(getFileBookUseCase)
+
+	getFileBookController.handle(req, res)
 })
 
 export { router }
