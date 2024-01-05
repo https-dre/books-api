@@ -12,8 +12,7 @@ export const dbPool = new Pool({
 })
 
 export const db_con = async () => {
-    dbPool.on('connect', () => {
-        console.log('PostgreSQL conectado com Sucesso!!')
-    })
+    const client = await dbPool.connect()
+    client.release()
 }
 
