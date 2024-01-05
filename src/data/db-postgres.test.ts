@@ -10,10 +10,15 @@ test('Realizar uma Query', async () => {
     const client = await dbPool.connect()
 
     const result = await client.query('SELECT * FROM books LIMIT 100')
+
+    await client.release()
 })
 
 test('Insert no PostgreSQL', async () => {
     const client = await dbPool.connect()
 
     const result = await client.query(`INSERT INTO books (id, name, autor, file) VALUES ('3','Nome do LIvro', 'Autor do Livro', 'FilePath')`)
+
+    await client.release()
+
 })
