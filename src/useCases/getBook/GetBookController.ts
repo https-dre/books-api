@@ -13,10 +13,10 @@ export class GetBookController {
     async handle(request : Request, response : Response) : Promise<Response>
     {
         console.log('Chegou no controller')
-        const { name } = request.params
+        const { name } = request.query
 
         try {
-            const result = await this.getBookUseCase.execute(name)
+            const result = await this.getBookUseCase.execute(name as unknown as string)
 
             return response.status(result.status).json(result.body)
         } catch (error : any) {
