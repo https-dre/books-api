@@ -1,12 +1,12 @@
 import { IBookRepository } from "../protocols/IBookRepository";
 import { Book } from "../../models/Book";
-import { dbPool } from "../../data/db-postgres";
+import { data } from "../../data/db-postgres";
 
 export class BookRepository implements IBookRepository
 {
     async save(book: Book): Promise<void> {
         try {
-            const db = await dbPool.connect()
+            const db = await data.dbPool.connect()
 
             const { rows } = await db.query(`
                 INSERT INTO books (id, name, autor, file) VALUES ( $1, $2, $3, $4)
@@ -21,7 +21,7 @@ export class BookRepository implements IBookRepository
     }
     async findByName(name: string): Promise<Book[]> {
         try {
-            const db = await dbPool.connect()
+            const db = await data.dbPool.connect()
 
             const result = await db.query(`
                 SELECT * FROM books WHERE name = $1
