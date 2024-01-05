@@ -1,4 +1,3 @@
-import { dbPool } from "../../data/db-postgres"
 import { expect, test } from 'vitest'
 import { BookRepository } from './BookRepository';
 import { Book } from '../../models/Book';
