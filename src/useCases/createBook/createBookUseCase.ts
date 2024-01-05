@@ -1,4 +1,5 @@
 import { Book } from "../../models/Book"
+import { HttpResponse } from "../../models/Http";
 import { IBookRepository } from "../../repositories/protocols/IBookRepository"
 import { v4 as uuid} from "uuid"
 
@@ -9,7 +10,7 @@ export class CreateBookUseCase {
 		this.bookRepository = repository
 	}
 
-	async execute(book : Omit<Book,'id'>) : Promise<Book | null>
+	async execute(book : Omit<Book,'id'>) : Promise<HttpResponse>
 	{
 		const bookToSave : Book = {
 			id: uuid(),
@@ -19,6 +20,9 @@ export class CreateBookUseCase {
 		} 
 		await this.bookRepository.save(bookToSave)
 
-		return bookToSave
+		return {
+			status: 201,
+			body: bookToSave
+		}
 	}
 }
