@@ -1,7 +1,12 @@
 import { app } from "./app"
+import { db_con } from "./data/db-postgres"
 
-app.listen(8888, () => {
-	console.log('Server Rodando. http://localhost:8888/')
-})
+const main = async () => {
+	await db_con()
 
+	app.listen(2007, () => {
+		console.log('Server Rodando. http://localhost:2007/')
+	})
+}
 
+main()
