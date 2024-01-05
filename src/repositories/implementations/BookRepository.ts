@@ -12,7 +12,7 @@ export class BookRepository implements IBookRepository
                 INSERT INTO books (id, name, autor, file) VALUES ( $1, $2, $3, $4)
             `, [book.id, book.name, book.autor, book.file])
 
-            await db.release()
+            db.release()
 
         } catch (error) {
             console.log(error)
@@ -26,6 +26,8 @@ export class BookRepository implements IBookRepository
             const result = await db.query(`
                 SELECT * FROM books WHERE name = $1
             `,[name])
+
+            db.release()
 
             const rows : Book[] = result.rows
 
