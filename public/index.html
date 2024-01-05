@@ -14,7 +14,7 @@
     <form id="uploadForm" enctype="multipart/form-data">
         <input type="text" id="nameInput">
         <input type="text" id="autorInput">
-        <input type="file" id="imageInput" name="file">
+        <input type="file" id="fileInput" name="file">
 
     </form>
     <button type="button" id="buttonUpload">Enviar</button>
@@ -22,7 +22,7 @@
     <script>
         async function uploadFile(e) {
 
-            const fileInput = document.getElementById('imageInput');
+            const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
 
             if (!file) {
@@ -30,7 +30,7 @@
                 return;
             }
 
-            const url = 'http://localhost:8888/post'; // Substitua pelo URL do seu servidor
+            const url = 'http://localhost:2007/post'; // Substitua pelo URL do seu servidor
 
             const formData = new FormData();
             formData.append('epub', file);
@@ -44,7 +44,7 @@
                 method: 'POST',
                 body: formData,
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                     "crossorigin": "anonymous"
                 }
             })
