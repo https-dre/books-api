@@ -1,10 +1,10 @@
 # Books - Api
 
-Uma api para downloads e uploads de Livros em *PDF*
+Uma api para visualizar realizar uploads de Livros em *PDF*
 
-O objetivo do projeto era aprender a lidar com arquivos de forma simples, então criei esse projeto só para passar o tempo, mas posso ampliar e tornar algo grande depois.
+O objetivo do projeto era aprender a lidar com arquivos de forma simples, então criei esse projeto só para passar o tempo.
 
-Banco de Dados: PostgreSQL
+Utilizei o PostgreSQL como banco de dados para registrar os Livros e o endereço de cada arquivo PDF salvo na pasta storage, assim cada linha do banco tem seu PDF correspondente.
 
 # Rotas
 
