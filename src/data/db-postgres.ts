@@ -11,3 +11,9 @@ export const dbPool = new Pool({
     port : process.env.DB_PORT as unknown as number
 })
 
+export const db_con = async () => {
+    dbPool.on('connect', () => {
+        console.log('PostgreSQL conectado com Sucesso!!')
+    })
+}
+
