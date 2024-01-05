@@ -1,5 +1,5 @@
 import { IBookRepository } from "../protocols/IBookRepository";
-import { Book } from "../../models/Book";
+import { Book } from '../../models/Book';
 import { data } from "../../data/db-postgres";
 
 export class BookRepository implements IBookRepository
@@ -36,6 +36,27 @@ export class BookRepository implements IBookRepository
         } catch (error) {
             console.log(error)
             throw new Error('Erro no BookRepository')
+        }
+    }
+
+    async findById(id: string): Promise<Book | null> {
+        try {
+            const db = await data.dbPool.connect()
+
+            const { rows } = await db.query(`
+                SELECT * FROM books WHERE id = $1
+            `,[id])
+
+            if(rows.length > 0)
+            {
+                const book : Book = rows[0]
+                return book
+            }
+
+            return null
+        } catch (error) {
+            console.log(error)
+            throw error
         }
     }
 }
