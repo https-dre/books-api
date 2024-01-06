@@ -1,6 +1,6 @@
 # Books - Api
 
-Uma api para visualizar realizar uploads de Livros em *PDF*
+Uma api para visualizar e realizar uploads de Livros em *PDF*
 
 O objetivo do projeto era aprender a lidar com arquivos de forma simples, então criei esse projeto só para passar o tempo.
 
