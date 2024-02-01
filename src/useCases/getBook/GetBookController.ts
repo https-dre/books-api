@@ -1,7 +1,6 @@
 import { GetBookUseCase } from "./GetBookUseCase";
 import { Request, Response } from 'express';
 
-
 export class GetBookController {
     private getBookUseCase : GetBookUseCase
 
@@ -12,7 +11,6 @@ export class GetBookController {
 
     async handle(request : Request, response : Response) : Promise<Response>
     {
-        console.log('Chegou no controller')
         const { name } = request.query
 
         try {
